@@ -5,22 +5,32 @@ from handler.spice_jet.scraper import Scraper
 class SpiceJet(object):
     def __init__(self):
         self.url = {
-            "home": "",
-            "pnr_status": ""
+            "home": "https://book.spicejet.com/",
+            "pnr_status": "https://book.spicejet.com/RetrieveBooking.aspx"
         }
 
-    def get_pnr_status(self, booking_reference, email_lastname):
+    def get_pnr_status(self, parameters):
         pass
-        # x = WebController()
-        # x.open_page(url="https://book.spicejet.com/RetrieveBooking.aspx")
-        # x.input_text(type="id", name="ControlGroupRetrieveBookingView_BookingRetrieveInputRetrieveBookingView_ConfirmationNumber", value=)
-        # x.input_text(type="id", name="ControlGroupRetrieveBookingView_ResendItineraryRetrieveBookingView_RecordLocator", value=)
-        # x.input_text(type="id", name="ControlGroupRetrieveBookingView_BookingRetrieveInputRetrieveBookingView_CONTACTEMAIL1", value=)
-        # x.click_element(type="id", name="ControlGroupRetrieveBookingView_BookingRetrieveInputRetrieveBookingView_ButtonRetrieve")
-        # if status:
-        #     html_source = x.get_attribute(tag_type="class", name="viewItinerary", attribute="innerHTML")
-        #     scraper = Scraper()
-        #     response = scraper.get_pnr_status(html_source)
-        #     return response
-        # else:
-        #     return False
+        web = WebController()
+        web.open_page(url=self.url["pnr_status"])
+        web.input_text(tag_type="id",
+                       name="ControlGroupRetrieveBookingView_BookingRetrieveInputRetrieveBookingView_ConfirmationNumber",
+                       value=parameters["booking_reference"])
+        web.input_text(tag_type="id",
+                       name="ControlGroupRetrieveBookingView_ResendItineraryRetrieveBookingView_RecordLocator",
+                       value=parameters["booking_reference"])
+        web.input_text(tag_type="id",
+                       name="ControlGroupRetrieveBookingView_BookingRetrieveInputRetrieveBookingView_CONTACTEMAIL1",
+                       value=parameters["email_lastname"])
+        web.click_element(tag_type="id",
+                          name="ControlGroupRetrieveBookingView_BookingRetrieveInputRetrieveBookingView_ButtonRetrieve")
+        status = web.wait_till_load(tag_type="id", name="bookingDetail")
+
+        if status:
+            html_source = web.get_attribute(tag_type="id", name="itineraryBody", attribute="innerHTML")
+            web.exit_driver()
+            scraper_controller = Scraper()
+            response = scraper_controller.get_pnr_status(html_source)
+            return response
+        else:
+            return False
