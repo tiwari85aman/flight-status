@@ -9,18 +9,19 @@ class Indigo(object):
             "pnr_status": "https://www.goindigo.in/member/my-booking.html"
         }
 
-    def get_pnr_status(self, booking_reference, email_lastname):
-        x = WebController()
-        x.open_page(url="https://www.goindigo.in/member/my-booking.html")
-        x.input_text(tag_type="id", name="booking-reference", value=booking_reference)
-        x.input_text(tag_type="id", name="email-lastname", value=email_lastname)
-        x.click_element(tag_type="id", name="mybooking-retrive-button")
+    def get_pnr_status(self, parameters):
+        web = WebController()
+        web.open_page(url=self.url["pnr_status"])
+        web.input_text(tag_type="id", name="booking-reference", value=parameters["booking_reference"])
+        web.input_text(tag_type="id", name="email-lastname", value=parameters["email_lastname"])
+        web.click_element(tag_type="id", name="mybooking-retrive-button")
 
-        status = x.wait_till_load(tag_type="class", name="pass-det-blck")
+        status = web.wait_till_load(tag_type="class", name="pass-det-blck")
         if status:
-            html_source = x.get_attribute(tag_type="class", name="viewItinerary", attribute="innerHTML")
-            scraper = Scraper()
-            response = scraper.get_pnr_status(html_source)
+            html_source = web.get_attribute(tag_type="class", name="viewItinerary", attribute="innerHTML")
+            web.exit_driver()
+            scraper_controller = Scraper()
+            response = scraper_controller.get_pnr_status(html_source)
             return response
         else:
             return False
