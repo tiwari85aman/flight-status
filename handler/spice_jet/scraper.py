@@ -22,7 +22,7 @@ class Scraper(object):
                         'Pax Type': [each.strip() for each in tr.find_all('td')[1].text.replace("\n", "").split(",")],
                     })
         except Exception as err:
-            passengers = self.error_message
+            passengers = []
 
         temp = {}
         try:

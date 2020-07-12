@@ -24,4 +24,5 @@ class Indigo(object):
             response = scraper_controller.get_pnr_status(html_source)
             return response
         else:
+            # TODO: Handle incorrect details and server error differently
             return {"error": "Please check the input details / Server Error"}
