@@ -10,13 +10,26 @@ To install this pip package run the following command.
 - Indigo
 - Spice Jet
 
-# Usage
 
+## Prerequisites
+- Chrome webdriver is required for the package to work.
+- webdriver execuatable is passed as parameter to the package.
+- Download chrome webdriver supported for your installed chrome version. 
+
+Download Link: https://chromedriver.chromium.org/downloads
+
+## Usage
 - Create an object of class `Airlines` with particular aviation company.
+
+params:
+- avaiation : Aviation company name
+- config : webdriver config
 
 Example:
 
-``aviation = Airlines(aviation="indigo")``
+``driver_config = {"webdriver": "chrome", "executable": "/path/to/executable"}``
+
+``aviation = Airlines(aviation="indigo", config=driver_config)``
 
 - Use available functions to get respective details.
 

@@ -1,16 +1,17 @@
-from web_controller import WebController
-from handler.indigo.scraper import Scraper
+from flight_status.handler.web_controller import WebController
+from flight_status.handler.indigo.scraper import Scraper
 
 
 class Indigo(object):
-    def __init__(self):
+    def __init__(self, config):
         self.url = {
             "home": "https://www.goindigo.in/",
             "pnr_status": "https://www.goindigo.in/member/my-booking.html"
         }
+        self.user_config = config
 
     def get_pnr_status(self, parameters):
-        web = WebController()
+        web = WebController(self.user_config)
         web.open_page(url=self.url["pnr_status"])
         web.input_text(tag_type="id", name="booking-reference", value=parameters["booking_reference"])
         web.input_text(tag_type="id", name="email-lastname", value=parameters["email_lastname"])

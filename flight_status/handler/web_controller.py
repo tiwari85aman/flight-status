@@ -4,22 +4,28 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 from selenium.common.exceptions import TimeoutException
-import os, json
-from bs4 import BeautifulSoup
 
 
 class WebController(object):
-    def __init__(self):
-        self.driver = self.setup()
+    def __init__(self, user_config):
+        self.driver = self.setup(user_config)
         self.max_delay_timeout = 25
 
-    def setup(self):
+    def setup(self, user_config):
         # instantiate a chrome options object so you can set the size and headless preference
-        chrome_options = Options()
-        # chrome_options.add_argument("--headless")
-        chrome_options.add_argument("--window-size=1920x1080")
-        chrome_driver = os.getcwd() + "/chromedriver"
-        return webdriver.Chrome(options=chrome_options, executable_path=chrome_driver)
+        options = Options()
+        options.add_argument("--headless")
+        driver_supported = {
+            "chrome": webdriver.Chrome
+        }
+        if {"webdriver", "executable"}.issubset(user_config):
+            if user_config["webdriver"] not in driver_supported.keys() or not user_config["executable"]:
+                raise Exception("Either this webdriver not supported now or executable is missing!")
+            driver = driver_supported[user_config["webdriver"]](options=options,
+                                                                executable_path=user_config["executable"])
+            return driver
+        else:
+            raise Exception("Please check the webdriver config provided, refer docs.")
 
     def open_page(self, url):
         self.driver.get(url)

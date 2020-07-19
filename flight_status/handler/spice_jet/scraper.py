@@ -1,4 +1,4 @@
-from handler import BeautifulSoup
+from flight_status.handler import BeautifulSoup
 
 
 class Scraper(object):
