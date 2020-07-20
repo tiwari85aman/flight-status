@@ -1,6 +1,9 @@
 # flight-status
 PIP package to get status of flight pnr status and other details [Supports multiple Indian Airlines]
 
+## Architecture
+!["architecture"](/docs/images/architecture.png)
+
 # How to Install
 To install this pip package run the following command.
 
