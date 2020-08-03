@@ -1,5 +1,6 @@
 from .handler.indigo import Indigo
 from .handler.spice_jet import SpiceJet
+from .handler.air_asia import AirAsia
 
 
 class Airlines(object):
@@ -7,7 +8,8 @@ class Airlines(object):
         self.aviation = None
         self.mapping = {
             "indigo": Indigo,
-            "spice_jet": SpiceJet
+            "spice_jet": SpiceJet,
+            "air_asia": AirAsia
         }
         self.setup(aviation, config)
 
