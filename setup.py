@@ -5,7 +5,7 @@ with open('README.md') as readme_file:
 
 setup(
     name='flight-status',
-    version='1.0.0',
+    version='1.0.1',
     description='PIP package to get status of flight pnr status and other details [Indian Airlines]',
     long_description_content_type="text/markdown",
     long_description=README,
