@@ -12,6 +12,7 @@ To install this pip package run the following command.
 # Supported Airlines
 - Indigo
 - Spice Jet
+- AirAsia
 
 
 ## Prerequisites
@@ -25,7 +26,7 @@ Download Link: https://chromedriver.chromium.org/downloads
 - Create an object of class `Airlines` with particular aviation company.
 
 params:
-- avaiation : Aviation company name
+- aviation : Aviation company name
 - config : webdriver config
 
 Example:
@@ -42,8 +43,9 @@ Example:
 
 | Airline  | Config  |
 | ------------ | ------------ |
-|  Indigo  | `{ "booking_reference": "XXX",    "email_lastname": "XXX"}` |
-|  SpiceJet  |  `{ "booking_reference": "XXX",    "email_lastname": "XXX"}` |
+|  indigo  | `{ "booking_reference": "XXX",    "email_lastname": "XXX"}` |
+|  spice_jet  |  `{ "booking_reference": "XXX",    "email_lastname": "XXX"}` |
+|  air_asia  |  `{ "booking_reference": "XXX",    "email_lastname": "XXX",  "departure_city": "XXX"}` |
 
 
 `` aviation.get_pnr_status(parameters=config)``
