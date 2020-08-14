@@ -9,7 +9,7 @@ from selenium.common.exceptions import TimeoutException
 class WebController(object):
     def __init__(self, user_config):
         self.driver = self.setup(user_config)
-        self.max_delay_timeout = 25
+        self.max_delay_timeout = 40
 
     def setup(self, user_config):
         # instantiate a chrome options object so you can set the size and headless preference
